@@ -1,4 +1,4 @@
-# import-info
+# module-display
 
 ## Project setup
 ```
