@@ -1,7 +1,7 @@
 <template>
 
   <div class="app-container">
-    <h1>数据模块化展示</h1>
+    <!--    <h1>数据模块化展示</h1>-->
     <hr>
     <div>
       <span>项目名称</span>
@@ -32,13 +32,12 @@
       <el-button type="info" style="margin: 10px" @click="clearSearch">重置</el-button>
     </div>
     <div class="box">
-      <div v-for="item of tableData" :key="item.name">
+      <h1 style="margin: auto" v-if="tableData.length <= 0">暂无数据</h1>
+      <div v-if="tableData.length > 0" v-for="item of tableData" :key="item.name">
         <el-card class="box-card">
           <div slot="header" class="clearfix">
-            <span style="font-size: 15px;font-weight: bold">{{ item.xmmc }}  <el-tag size="mini" type="danger">{{
-                item.name
-              }}</el-tag></span>
-            <el-button style="float: right; padding: 3px 0" type="text">查看详情</el-button>
+            <span style="font-size: 15px;font-weight: bold">{{ item.xmmc }}</span>
+            <el-button style="float: right; padding: 3px 0" type="text" @click="getDetails(item.id)">查看详情</el-button>
           </div>
           <div class="text item">
             项目代码：{{ item.xmdm }}
@@ -49,11 +48,14 @@
           <div class="text item">
             <!--                  todo 根据状态调整样式-->
             项目状态：
-            <el-tag>{{ item.jsxz }}</el-tag>
+            <el-tag
+                :type="tagType(item.jsxz)"
+            >{{ item.jsxz }}
+            </el-tag>
           </div>
           <!--                动画-->
           <div class="text item">
-            <div class="box-dh"></div>
+            <!--            <div class="box-dh"></div>-->
           </div>
         </el-card>
       </div>
@@ -106,7 +108,7 @@ export default {
   watch: {},
   methods: {
     getPage(num, size) {
-      axios.get(this.actionHost + '/xmxx/page?pageNum=' + num + "&pageSize=" + size +
+      axios.get(this.actionHost + '/yc/sso/xmxx/page?pageNum=' + num + "&pageSize=" + size +
           "&xmmc=" + this.xmmc + "&xmyz=" + this.xmyz + "&zrdw=" + this.zrdw + "&xmcj=" + this.xmcj).then(res => {
         this.tableData = res.data.result.list
         this.total = res.data.result.total
@@ -133,6 +135,29 @@ export default {
       this.xmyz = ""
       this.pageNum = 1
       this.getPage(1, this.pageSize)
+    },
+    tagType(name) {
+      switch (name) {
+        case
+        '续建类':
+          return 'success';
+        case
+        '竣工投产类':
+          return 'info';
+        case
+        '预备类':
+          return 'warning';
+        case
+        '新开工类':
+          return 'danger';
+        default:
+          return '';
+      }
+    },
+    getDetails(id) {
+      console.log(id)
+      let url = global.host+'/yc/formDesign/index.html#/formView/2d4cf21fcdeab8e0b732f2a562c1f316'
+      location.href = url
     }
   }
 }
