@@ -1,39 +1,37 @@
 <template>
-
   <div class="app-container">
-    <!--    <h1>数据模块化展示</h1>-->
     <hr>
-    <div>
+    <div style="margin-bottom: 10px">
       <span>项目名称</span>
       <el-input v-model="xmmc" placeholder="输入项目名称"
-                style="width: 220px;margin: auto 25px auto 10px;"
+                style="width: 200px;margin: auto 25px auto 10px;"
                 prefix-icon="el-icon-search"
                 :clearable="true"
       ></el-input>
       <span>项目业主</span>
       <el-input v-model="xmyz" placeholder="输入项目业主"
-                style="width: 220px;margin: auto 25px auto 5px;"
+                style="width: 200px;margin: auto 25px auto 5px;"
                 prefix-icon="el-icon-user"
                 :clearable="true"
       ></el-input>
       <span>责任单位</span>
       <el-input v-model="zrdw" placeholder="输入责任单位"
-                style="width: 220px;margin: auto 25px auto 10px;"
+                style="width: 200px;margin: auto 25px auto 10px;"
                 prefix-icon="el-icon-s-home"
                 :clearable="true"
       ></el-input>
       <span>项目层级</span>
       <el-input v-model="xmcj" placeholder="输入项目层级"
-                style="width: 220px;margin: auto 25px auto 10px;"
+                style="width: 200px;margin: auto 25px auto 10px;"
                 prefix-icon="el-icon-finished"
                 :clearable="true"
       ></el-input>
-      <el-button type="success" style="margin: 10px" @click="searchKeyWord">查询</el-button>
-      <el-button type="info" style="margin: 10px" @click="clearSearch">重置</el-button>
+      <el-button type="success" style="margin: 5px" @click="searchKeyWord">查询</el-button>
+      <el-button type="info" style="margin: 5px" @click="clearSearch">重置</el-button>
     </div>
     <div class="box">
       <h1 style="margin: auto" v-if="tableData.length <= 0">暂无数据</h1>
-      <div v-if="tableData.length > 0" v-for="item of tableData" :key="item.name">
+      <div v-if="tableData.length > 0" v-for="item of tableData" :key="item.id">
         <el-card class="box-card">
           <div slot="header" class="clearfix">
             <span style="font-size: 15px;font-weight: bold">{{ item.xmmc }}</span>
@@ -46,7 +44,6 @@
             总投资额： {{ item.ztz }}
           </div>
           <div class="text item">
-            <!--                  todo 根据状态调整样式-->
             项目状态：
             <el-tag
                 :type="tagType(item.jsxz)"
@@ -54,9 +51,9 @@
             </el-tag>
           </div>
           <!--                动画-->
-          <div class="text item">
-            <!--            <div class="box-dh"></div>-->
-          </div>
+<!--          <div class="text item">-->
+<!--            &lt;!&ndash;            <div class="box-dh"></div>&ndash;&gt;-->
+<!--          </div>-->
         </el-card>
       </div>
     </div>
@@ -154,9 +151,14 @@ export default {
           return '';
       }
     },
+    // getDetails(id) {
+    //   console.log(id)
+    //   let url = global.host + '/yc/formDesign/index.html#/formView/2d4cf21fcdeab8e0b732f2a562c1f316'
+    //   location.href = url
+    // },
     getDetails(id) {
       console.log(id)
-      let url = global.host+'/yc/formDesign/index.html#/formView/2d4cf21fcdeab8e0b732f2a562c1f316'
+      let url = global.host + '/yc/formDesign/index.html#/formView/2d4cf21fcdeab8e0b732f2a562c1f316?businessId=' + id;
       location.href = url
     }
   }
@@ -199,18 +201,18 @@ export default {
 .box {
   text-align: left;
   margin: auto;
-  height: 550px;
+  height: auto;
   width: 100%;
-  position: relative;
+  max-width: 1400px;
   overflow: auto;
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
   background-color: rgba(5, 55, 91, 0.39);
 }
 
 .box-card {
-  width: 380px;
+  width: 300px;
+  height: 240px;
   margin: 20px;
 }
 
